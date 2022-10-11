@@ -51,19 +51,23 @@ cv2.imwrite('notes.jpg', img_notes)
 # lang = eng or jpn
 tools = pyocr.get_available_tools()
 if len(tools) == 0:
-    print("No OCR tool found")
+    print("No OCR tool found.\n")
     sys.exit(1)
 tool = tools[0]
 
 text = tool.image_to_string(Image.open('title.jpg'), lang="jpn")
-print(f"Title : {text}\n")
+print(f"Title : {text}")
 
 text = tool.image_to_string(Image.open('difficulty.jpg'), lang="jpn")
-print(f"Difficulty : {text}\n")
+print(f"Difficulty : {text}")
 
 text = tool.image_to_string(Image.open('maxCombo.jpg'), lang="eng")
-print(f"Max combo : {text}\n")
+print(f"Max combo : {text}")
 
-print("Notes :")
+print("Notes judge :")
 text = tool.image_to_string(Image.open('notes.jpg'), lang="eng")
-print(f"{text}\n")
+data = text.splitlines()
+judge = ["PERFECT", "GREAT", "GOOD", "BAD", "MISS"]
+for i in range(5):
+    print(f"{judge[i]} - {data[i]}")
+
